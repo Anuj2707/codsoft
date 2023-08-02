@@ -1,78 +1,74 @@
-from tkinter import *
-import string
-import random
-import pyperclip
 import tkinter
+from tkinter import *
 
-def gen():
-    lower = string.ascii_lowercase
-    upper = string.ascii_uppercase
-    numbers = string.digits
-    special = string.punctuation
+equ=""
+def display(val):
+    global equ
+    equ+=val
+    labelresult.config(text=equ)
+def clear():
+    global equ
+    equ=""
+    labelresult.config(text=equ)
+def cal():
+    global equ
+    res=""
+    if equ!="":
+        try:
+            res=eval(equ)
+        except:
+            res="error"
+            equ=""
+    labelresult.config(text=res)
 
-    mix = lower + upper + numbers + special
-    passwordlength = int(length1.get())
 
-    password = ""
 
-    if choose.get() == 1:
-        passwords = ''.join(random.choices(lower, k=passwordlength))
 
-    elif choose.get() == 2:
-        passwords = ''.join(random.choices(lower + upper + numbers, k=passwordlength))
+win=tkinter.Tk()
+win.title("CALCULATOR")
+win.geometry("580x605+100+200")
+win.resizable(False,False)
+win.configure(bg="white")
 
-    elif choose.get() == 3:
-        passwords = ''.join(random.choices(mix, k=passwordlength))
+#titleimage
+titleimage=PhotoImage(file="cal.png")
+win.iconphoto(False,titleimage)
 
-    passfield.delete(0, 'end')
-    passfield.insert(0, passwords)
 
-def copy():
-    random_password = passfield.get()
-    pyperclip.copy(random_password)
+labelresult=Label(win,width=25,height=2,text="",font=("poppins",30,"bold"))
+labelresult.pack()
 
-win = tkinter.Tk()
-win.title("Random Password Generator")
-win.geometry("600x580")
-win.resizable(False, False)
-win.config(bg='white')
-choose = IntVar()
-Font = ('poppins', 18, 'bold')
-passwordLabel = Label(win, text='Password Generator', font=('times new roman', 20, 'bold'), bg='black', fg='white')
-passwordLabel.grid(pady=10)
+#buttons
+Button(win,text="C",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="red",command=lambda: clear()).place(x=10,y=100)
+Button(win,text="/",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="lightblue",command=lambda: display("/")).place(x=150,y=100)
+Button(win,text="%",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="lightblue",command=lambda: display("%")).place(x=290,y=100)
+Button(win,text="*",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="lightblue",command=lambda: display("*")).place(x=430,y=100)
 
-# images
-t_img = PhotoImage(file="titimg.png")
-win.iconphoto(False, t_img)
 
-# radio
-weak = Radiobutton(win, text='Poor', value=1, variable=choose, font=Font)
-weak.place(x=40, y=100)
+Button(win,text="7",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display("7")).place(x=10,y=200)
+Button(win,text="8",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display("8")).place(x=150,y=200)
+Button(win,text="9",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display("9")).place(x=290,y=200)
+Button(win,text="-",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="lightblue",command=lambda: display("-")).place(x=430,y=200)
 
-medium = Radiobutton(win, text='Average', value=2, variable=choose, font=Font)
-medium.place(x=200, y=100)
+Button(win,text="4",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display("4")).place(x=10,y=300)
+Button(win,text="5",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display("5")).place(x=150,y=300)
+Button(win,text="6",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display("6")).place(x=290,y=300)
+Button(win,text="+",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="lightblue",command=lambda: display("+")).place(x=430,y=300)
 
-strong = Radiobutton(win, text='Strong', value=3, variable=choose, font=Font)
-strong.place(x=390, y=100)
+Button(win,text="1",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display("1")).place(x=10,y=400)
+Button(win,text="2",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display("2")).place(x=150,y=400)
+Button(win,text="3",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display("3")).place(x=290,y=400)
+Button(win,text=".",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="lightblue",command=lambda: display(".")).place(x=430,y=400)
 
-# label
-lengthpassword = Label(win, text='Password Length', font=Font, bg='black', fg='white')
-lengthpassword.place(x=190, y=190)
+Button(win,text="(",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display("(")).place(x=10,y=500)
+Button(win,text=")",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display(")")).place(x=150,y=500)
+Button(win,text="0",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="grey",command=lambda: display("0")).place(x=290,y=500)
+Button(win,text="=",width=5,height=1,font=("poppins",30,"bold"),bd=1.5,fg="white",bg="darkblue",command=lambda: cal()).place(x=430,y=500)
 
-# spinbox
-length1 = Spinbox(win, from_=8, to_=25, width=7, font=Font)
-length1.place(x=230, y=240)
 
-# button
-b1 = Button(win, text='Generate', font=Font, command=gen, fg="white", bg="red")
-b1.place(x=190, y=300)
 
-# entry
-passfield = Entry(win, width=25, bd=2, font=Font,fg="red")
-passfield.place(x=100, y=365)
 
-# button copy
-b2 = Button(win, text='Copy', font=Font, command=copy, fg="white", bg="blue")
-b2.place(x=218, y=430)
+
+
 
 win.mainloop()
